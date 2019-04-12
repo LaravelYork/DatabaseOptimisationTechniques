@@ -40,6 +40,7 @@ return [
     */
 
     'debug' => env('APP_DEBUG', false),
+    'debug_all_queries' => env('APP_DEBUG_ALL_QUERIES', false),
 
     /*
     |--------------------------------------------------------------------------
@@ -174,6 +175,12 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+
+        /*
+        * Custom Service Providers
+        */
+
+        App\Providers\Debug\DebugDatabaseServiceProvider::class,
 
     ],
 
