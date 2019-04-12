@@ -17,7 +17,7 @@ class WelcomeController extends Controller
     public function user(Request $r){
 
         $firstUser = User::first();
-        
+
         return view('welcome');
     }
 

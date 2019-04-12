@@ -6,6 +6,7 @@ use DB;
 use Event;
 use Config;
 use Session;
+use DateTime;
 use Illuminate\Support\ServiceProvider;
 
 use App\Exceptions\Core\DebugException;
@@ -27,7 +28,7 @@ class DebugDatabaseServiceProvider extends ServiceProvider
                 $bindings = [];
 
                 foreach ($query->bindings as $i => $binding) {
-                    if ($binding instanceof \DateTime) {
+                    if ($binding instanceof DateTime) {
                         $bindings[$i] = $binding->format('\'Y-m-d H:i:s\'');
                     } elseif (is_string($binding)) {
                         $bindings[$i] = "'$binding'";
@@ -83,7 +84,8 @@ class DebugDatabaseServiceProvider extends ServiceProvider
 
     protected static function shouldDebugQueries(){
 
-        if ((App::environment('local') && Config::get('app.debug') && (strpos(php_sapi_name(), 'cli') === false)) || Config::get('app.debug_all_queries')) {
+        //(strpos(php_sapi_name(), 'cli') === false)
+        if ((App::environment('local') && Config::get('app.debug')) || Config::get('app.debug_all_queries')) {
             return true;
         } else {
             return false;
