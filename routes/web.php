@@ -23,6 +23,7 @@ Route::group(
     function () {
 
         Route::get('/', ['as' => 'home', 'uses' => 'WelcomeController@welcome']);
+        Route::get('/user', ['as' => 'user', 'uses' => 'WelcomeController@user']);
 
     }
 );
