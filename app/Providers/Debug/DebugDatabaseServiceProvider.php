@@ -13,6 +13,8 @@ use App\Exceptions\Core\DebugException;
 use App\Services\DebugQueryCache;
 use App\Http\ViewComposers\DebugDatabaseComposer;
 
+use NilPortugues\Sql\QueryFormatter\Formatter as SQLFormatter;
+
 class DebugDatabaseServiceProvider extends ServiceProvider
 {
     protected $queries = [];
@@ -45,16 +47,13 @@ class DebugDatabaseServiceProvider extends ServiceProvider
                 $query_flat = preg_replace("/[\n\t\s]+/", " ", $query_flat);
 
                 if (!(request()->is('api/*'))) {
-                    $query_flat = preg_replace("/as ([a-z0-9\_\-\.]+),/i", "as $1,\n", $query_flat);
+                    $query_flat = preg_replace("/as ([a-z0-9\_\-\.]+),/i", "as $1,<br />", $query_flat);
 
-                    $query_flat = str_replace("`, ", "`,\n", $query_flat);
-                    $query_flat = str_replace("from", "\nfrom", $query_flat);
-                    $query_flat = str_replace("left", "\nleft", $query_flat);
-                    $query_flat = str_replace("inner", "\ninner", $query_flat);
-                    $query_flat = str_replace("and", "\nand", $query_flat);
-                    $query_flat = str_replace("where", "\nwhere", $query_flat);
-                    $query_flat = str_replace("group by", "\ngroup by", $query_flat);
-                    $query_flat = str_replace("order by", "\norder by", $query_flat);
+                    $query_flat = preg_replace("/([0-9]+)/",'<span class="token token__number">$1</span>',$query_flat);
+
+                    $query_flat = preg_replace(sprintf("/(%s)/i",implode("|",static::$keywords_newline)),'<br/><span class="token token__keyword">$1</span>',$query_flat);
+                    $query_flat = preg_replace(sprintf("/(%s)/i",implode("|",static::$keywords)),'<span class="token token__keyword">$1</span>',$query_flat);
+
                 }
                 
                 $time = $query->time;
@@ -86,4 +85,14 @@ class DebugDatabaseServiceProvider extends ServiceProvider
             return false;
         }
     }
+
+    protected static $keywords = [
+        'SELECT','DROP','UPDATE','ALTER TABLE','DELETE FROM'
+    ];
+
+    protected static $keywords_newline = [
+        'FROM', 'WHERE', 'SET', 'ORDER BY', 'GROUP BY', 'LIMIT',
+        'VALUES', 'HAVING', 'ADD', 'AFTER', 'UNION ALL', 'UNION', 'EXCEPT', 'INTERSECT',
+        'LEFT OUTER JOIN', 'RIGHT OUTER JOIN', 'LEFT JOIN', 'RIGHT JOIN', 'OUTER JOIN', 'INNER JOIN', 'JOIN', 'XOR', 'OR', 'AND'
+    ];
 }

@@ -61,6 +61,26 @@
             .m-b-md {
                 margin-bottom: 30px;
             }
+            .debug__query__wrapper {
+                text-align: left;
+            }
+
+            .debug__query__sql {
+                background: #f2f2f2;
+                padding: 1em;
+            }
+
+            .token__keyword {
+                color: #36BF7C;
+            }
+            .token__number { 
+                color:#9575CD;
+            }
+
+            .debug__stack__file {
+                font-size: 12px;
+            }
+
         </style>
     </head>
     <body>

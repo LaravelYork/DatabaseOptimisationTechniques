@@ -10,10 +10,10 @@
             <dt>#{{ $loop->index }} [{{ $query['time'] }} ms] 
               @if(count($query['bindings']) > 0) { {{ join(",",$query['bindings']) }} } @endif
             </dt>
-            <dd class="debug__query__sql">{{ $query['query_flat'] }}</dd>
+            <dd class="debug__query__sql">{!! $query['query_flat'] !!}</dd>
             <dd class="debug__stack">
                 @foreach($query['stack'] as $file_uri)
-                   {{ $file_uri }}
+                   <span class="debug__stack__file">{{ $file_uri }}</span>
                 @endforeach
             </dd>
         </dl>
