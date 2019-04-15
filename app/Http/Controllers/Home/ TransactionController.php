@@ -7,10 +7,10 @@ use Illuminate\Http\Request;
 
 use App\Models\User;
 
-class ChunkController extends Controller
+class TransactionController extends Controller
 {
 
-    public function chunk(Request $r){
+    public function transaction(Request $r){
 
         User::chunk(100, function($users) 
         {
@@ -50,18 +50,14 @@ class ChunkController extends Controller
     public function chunkGotcha(Request $r){
 
         $verifiedEmailCountBefore = User::whereNotNull('email_verified_at')->count();
-        $verifiedIds = User::whereNotNull('email_verified_at')->pluck('id')->toArray();
 
         $chunks = [];
-        $updatedIds = [];
-
-        User::whereNotNull('email_verified_at')->chunk(100, function($users) use (&$chunks, &$updatedIds)
+        User::whereNotNull('email_verified_at')->chunk(100, function($users) use (&$chunks)
         {   
             
             $ids = $users->pluck('id');
 
             $chunks[] = count($ids);
-            $updatedIds = array_merge($updatedIds,$ids->toArray());
 
             $randomIds = $ids->random(2);
 
@@ -71,10 +67,8 @@ class ChunkController extends Controller
         });
 
         $verifiedEmailCountAfter = User::whereNotNull('email_verified_at')->count();
-
-        $missingIds = array_diff($verifiedIds,$updatedIds);
         
-        return view('emailCount', compact('verifiedEmailCountBefore','verifiedEmailCountAfter', 'chunks','missingIds'));
+        return view('emailCount', compact('verifiedEmailCountBefore','verifiedEmailCountAfter', 'chunks'));
 
     }
 
