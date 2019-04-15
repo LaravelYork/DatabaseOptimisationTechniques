@@ -11,9 +11,6 @@
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
 
 Route::group(
     [
@@ -24,6 +21,7 @@ Route::group(
 
         Route::get('/', ['as' => 'home', 'uses' => 'WelcomeController@welcome']);
         Route::get('/user', ['as' => 'user', 'uses' => 'WelcomeController@user']);
+        Route::get('/seed', ['as' => 'user', 'uses' => 'WelcomeController@seed']);
 
     }
 );

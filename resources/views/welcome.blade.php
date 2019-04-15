@@ -20,9 +20,9 @@
                 margin: 0;
             }
 
-            .full-height {
+            /* .full-height {
                 height: 100vh;
-            }
+            } */
 
             .flex-center {
                 align-items: center;
@@ -61,8 +61,15 @@
             .m-b-md {
                 margin-bottom: 30px;
             }
+
+
             .debug__query__wrapper {
                 text-align: left;
+                padding: 1em;
+            }
+
+            .debug__query {
+              
             }
 
             .debug__query__sql {
@@ -100,8 +107,13 @@
             @endif
 
             <div class="content">
-                 @include('embeds.debugDatabase', ['db_debug'=>$db_debug])
+                @yield('content')
+
+                <div class="debug">
+                        @include('embeds.debugDatabase', ['db_debug'=>$db_debug])
+                </div>
             </div>
+
         </div>
     </body>
 </html>

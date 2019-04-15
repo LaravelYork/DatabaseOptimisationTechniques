@@ -27,7 +27,7 @@ class DebugDatabaseComposer
 
                 $debugQueryCache = resolve(DebugQueryCache::class);
                 $db_debug['query_count'] = count($debugQueryCache->queries);
-                $db_debug['queries'] = $debugQueryCache->queries;
+                $db_debug['queries'] = array_reverse($debugQueryCache->queries);
             }
         }
 

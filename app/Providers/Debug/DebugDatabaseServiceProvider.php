@@ -51,8 +51,8 @@ class DebugDatabaseServiceProvider extends ServiceProvider
 
                     $query_flat = preg_replace("/([0-9]+)/",'<span class="token token__number">$1</span>',$query_flat);
 
-                    $query_flat = preg_replace(sprintf("/(%s)/i",implode("|",static::$keywords_newline)),'<br/><span class="token token__keyword">$1</span>',$query_flat);
-                    $query_flat = preg_replace(sprintf("/(%s)/i",implode("|",static::$keywords)),'<span class="token token__keyword">$1</span>',$query_flat);
+                    $query_flat = preg_replace(sprintf("/\b(%s)\b/i",implode("|",static::$keywords_newline)),'<br/><span class="token token__keyword">$1</span>',$query_flat);
+                    $query_flat = preg_replace(sprintf("/\b(%s)\b/i",implode("|",static::$keywords)),'<span class="token token__keyword">$1</span>',$query_flat);
 
                 }
                 
@@ -87,7 +87,7 @@ class DebugDatabaseServiceProvider extends ServiceProvider
     }
 
     protected static $keywords = [
-        'SELECT','DROP','UPDATE','ALTER TABLE','DELETE FROM'
+        'SELECT','DROP','UPDATE','ALTER TABLE','DELETE FROM', 'insert'
     ];
 
     protected static $keywords_newline = [
