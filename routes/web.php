@@ -23,8 +23,18 @@ Route::group(
         Route::get('/user', ['as' => 'user', 'uses' => 'WelcomeController@user']);
         Route::get('/seed', ['as' => 'user', 'uses' => 'WelcomeController@seed']);
 
-
         Route::get('/chunk', ['as' => 'user', 'uses' => 'ChunkController@chunk']);
+        Route::get('/chunkBetter', ['as' => 'user', 'uses' => 'ChunkController@chunkBetter']);
+        Route::get('/chunkGotcha', ['as' => 'user', 'uses' => 'ChunkController@chunkGotcha']);
+
+
+// - Using Transactions
+// - Single values & Aggregates
+// - Join Grouping
+// - Sub-Query Joins
+// - Eloquent Relationship Loading
+// - Global Scopes
+// - Observers
 
     }
 );
