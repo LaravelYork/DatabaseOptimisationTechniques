@@ -26,6 +26,7 @@ class DebugDatabaseComposer
             if (App::environment('local')) {
 
                 $debugQueryCache = resolve(DebugQueryCache::class);
+                $db_debug['query_count'] = count($debugQueryCache->queries);
                 $db_debug['queries'] = $debugQueryCache->queries;
             }
         }

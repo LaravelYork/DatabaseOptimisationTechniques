@@ -14,17 +14,14 @@ use App\Services\DebugQueryCache;
 use App\Http\ViewComposers\DebugDatabaseComposer;
 
 class DebugDatabaseServiceProvider extends ServiceProvider
-{   
-
+{
     protected $queries = [];
     public function boot()
     {
         view()->composer('*', DebugDatabaseComposer::class);
 
         if (static::shouldDebugQueries()) {
-
             DB::listen(function ($query) {
-
                 $bindings = [];
 
                 foreach ($query->bindings as $i => $binding) {
@@ -47,19 +44,17 @@ class DebugDatabaseServiceProvider extends ServiceProvider
     
                 $query_flat = preg_replace("/[\n\t\s]+/", " ", $query_flat);
 
-                if(!(request()->is('api/*'))){
+                if (!(request()->is('api/*'))) {
+                    $query_flat = preg_replace("/as ([a-z0-9\_\-\.]+),/i", "as $1,\n", $query_flat);
 
-                $query_flat = preg_replace("/as ([a-z0-9\_\-\.]+),/i", "as $1,\n", $query_flat);
-
-                $query_flat = str_replace("`, ", "`,\n", $query_flat);
-                $query_flat = str_replace("from", "\nfrom", $query_flat);
-                $query_flat = str_replace("left", "\nleft", $query_flat);
-                $query_flat = str_replace("inner", "\ninner", $query_flat);
-                $query_flat = str_replace("and", "\nand", $query_flat);
-                $query_flat = str_replace("where", "\nwhere", $query_flat);
-                $query_flat = str_replace("group by", "\ngroup by", $query_flat);
-                $query_flat = str_replace("order by", "\norder by", $query_flat);
-                
+                    $query_flat = str_replace("`, ", "`,\n", $query_flat);
+                    $query_flat = str_replace("from", "\nfrom", $query_flat);
+                    $query_flat = str_replace("left", "\nleft", $query_flat);
+                    $query_flat = str_replace("inner", "\ninner", $query_flat);
+                    $query_flat = str_replace("and", "\nand", $query_flat);
+                    $query_flat = str_replace("where", "\nwhere", $query_flat);
+                    $query_flat = str_replace("group by", "\ngroup by", $query_flat);
+                    $query_flat = str_replace("order by", "\norder by", $query_flat);
                 }
                 
                 $time = $query->time;
@@ -71,7 +66,6 @@ class DebugDatabaseServiceProvider extends ServiceProvider
 
                 $debugQueryCache = resolve(DebugQueryCache::class);
                 $debugQueryCache->queries[] = $data;
-                
             });
         }
     }
@@ -82,7 +76,8 @@ class DebugDatabaseServiceProvider extends ServiceProvider
         $this->app->singleton(DebugQueryCache::class);
     }
 
-    protected static function shouldDebugQueries(){
+    protected static function shouldDebugQueries()
+    {
 
         //(strpos(php_sapi_name(), 'cli') === false)
         if ((App::environment('local') && Config::get('app.debug')) || Config::get('app.debug_all_queries')) {

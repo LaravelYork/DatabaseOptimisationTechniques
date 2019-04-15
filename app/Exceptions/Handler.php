@@ -70,7 +70,7 @@ class Handler extends ExceptionHandler
             if (isset($t['class'])) {
                 $d[$i] .= $t['class'].'->';
             }
-            if (isset($t['function'])) {
+            if (isset($t['function']) && !stristr($t['function'], 'require_once')) {
                 $d[$i] .=  $t['function'].'()';
             }
             if (isset($t['line'])) {

@@ -80,7 +80,7 @@
             @endif
 
             <div class="content">
-                <pre>@json($db_debug)</pre>
+                 @include('embeds.debugDatabase', ['db_debug'=>$db_debug])
             </div>
         </div>
     </body>
