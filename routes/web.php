@@ -23,5 +23,8 @@ Route::group(
         Route::get('/user', ['as' => 'user', 'uses' => 'WelcomeController@user']);
         Route::get('/seed', ['as' => 'user', 'uses' => 'WelcomeController@seed']);
 
+
+        Route::get('/chunk', ['as' => 'user', 'uses' => 'ChunkController@chunk']);
+
     }
 );

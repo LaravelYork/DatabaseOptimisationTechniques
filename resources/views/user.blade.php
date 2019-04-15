@@ -1,5 +1,5 @@
 @extends('welcome')
 
 @section('content')
-   {{ $firstUser->name }}
+   {{ $userViewContext->name }}
 @endsection

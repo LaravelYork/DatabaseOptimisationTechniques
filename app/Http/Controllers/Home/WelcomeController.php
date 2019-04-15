@@ -16,9 +16,9 @@ class WelcomeController extends Controller
 
     public function user(Request $r){
 
-        $firstUser = User::first();
+        $userViewContext = User::first();
         
-        return view('user', compact('firstUser'));
+        return view('user', compact('userViewContext'));
 
     }
 
@@ -26,9 +26,9 @@ class WelcomeController extends Controller
 
         factory(User::class, 20)->create();
 
-        $firstUser = User::orderBy('created_at', 'desc')->first();
+        $userViewContext = User::orderBy('created_at', 'desc')->first();
         
-        return view('user', compact('firstUser'));
+        return view('user', compact('userViewContext'));
 
     }
 
