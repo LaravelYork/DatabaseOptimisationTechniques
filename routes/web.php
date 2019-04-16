@@ -21,15 +21,17 @@ Route::group(
 
         Route::get('/', ['as' => 'home', 'uses' => 'WelcomeController@welcome']);
         Route::get('/user', ['as' => 'user', 'uses' => 'WelcomeController@user']);
-        Route::get('/seed', ['as' => 'user', 'uses' => 'WelcomeController@seed']);
+        Route::get('/seed', ['as' => 'seed', 'uses' => 'WelcomeController@seed']);
 
-        Route::get('/chunk', ['as' => 'user', 'uses' => 'ChunkController@chunk']);
-        Route::get('/chunkBetter', ['as' => 'user', 'uses' => 'ChunkController@chunkBetter']);
-        Route::get('/chunkGotcha', ['as' => 'user', 'uses' => 'ChunkController@chunkGotcha']);
+        Route::get('/chunk', ['as' => 'chunk', 'uses' => 'ChunkController@chunk']);
+        Route::get('/chunkBetter', ['as' => 'chunkb', 'uses' => 'ChunkController@chunkBetter']);
+        Route::get('/chunkGotcha', ['as' => 'chunkg', 'uses' => 'ChunkController@chunkGotcha']);
 
+        Route::get('/transact', ['as' => 'transact', 'uses' => 'TransactionController@transact']);
 
-// - Using Transactions
-// - Single values & Aggregates
+        Route::get('/single', ['as' => 'transact', 'uses' => 'QueryController@single']);
+        Route::get('/aggregate', ['as' => 'transact', 'uses' => 'QueryController@aggregate']);
+
 // - Join Grouping
 // - Sub-Query Joins
 // - Eloquent Relationship Loading
