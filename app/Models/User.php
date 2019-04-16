@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 use App\Models\GlobalScopes\IsVerifiedScope;
 
+use App\Models\Email;
+
 class User extends Authenticatable
 {
     use Notifiable;
@@ -44,6 +46,19 @@ class User extends Authenticatable
         parent::boot();
 
        //static::addGlobalScope(new IsVerifiedScope);
+    }
+
+    public function scopeHasEmails($query){
+
+        return $query->join('emails', function($query){
+            $query->on('users.id','=','user_id');
+        })->select('users.*');   
+    
+    }
+
+    public function emails()
+    {
+        return $this->hasMany(Email::class);
     }
 
 }
