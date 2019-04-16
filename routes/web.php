@@ -32,11 +32,11 @@ Route::group(
         Route::get('/single', ['as' => 'transact', 'uses' => 'QueryController@single']);
         Route::get('/aggregate', ['as' => 'transact', 'uses' => 'QueryController@aggregate']);
 
-// - Join Grouping
-// - Sub-Query Joins
-// - Eloquent Relationship Loading
-// - Global Scopes
-// - Observers
+        // - Observers
+
+      // - Join Grouping
+      // - Sub-Query Joins
+      // - Eloquent Relationship Loading
 
     }
 );

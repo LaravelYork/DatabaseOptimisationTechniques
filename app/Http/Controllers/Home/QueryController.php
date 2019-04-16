@@ -24,7 +24,7 @@ class QueryController extends Controller
     public function aggregate(Request $r){
 
         
-        //$value = User::count();
+        $value = User::count();
         //$value = User::max('id');
         //$value = User::avg(DB::raw('DATE_FORMAT(created_at,"%D")'));
 
