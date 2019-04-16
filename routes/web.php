@@ -29,11 +29,12 @@ Route::group(
 
         Route::get('/transact', ['as' => 'transact', 'uses' => 'TransactionController@transact']);
 
-        Route::get('/single', ['as' => 'transact', 'uses' => 'QueryController@single']);
-        Route::get('/aggregate', ['as' => 'transact', 'uses' => 'QueryController@aggregate']);
+        Route::get('/single', ['as' => 'single', 'uses' => 'QueryController@single']);
+        Route::get('/aggregate', ['as' => 'aggregate', 'uses' => 'QueryController@aggregate']);
+        Route::get('/joins', ['as' => 'join', 'uses' => 'QueryController@joinGrouping']);
+        Route::get('/subquery', ['as' => 'subquery', 'uses' => 'QueryController@subquery']);
 
-      // - Join Grouping
-      // - Sub-Query Joins
+      
       // - Eloquent Relationship Loading
 
     }
